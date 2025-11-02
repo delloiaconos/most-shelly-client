@@ -11,12 +11,9 @@
 
     # List of directories to create
     mostshelly_dirs:
-      - "{{ base_path }}/wireguard"
       - "{{ base_path }}/mosquitto/config"
       - "{{ base_path }}/mosquitto/data"
       - "{{ base_path }}/mosquitto/log"
-      - "{{ base_path }}/influx/data"
-      - "{{ base_path }}/nodered/data"
 
   tasks:
     - name: Ensure base directory exists
