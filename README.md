@@ -46,6 +46,12 @@ This setup is ideal for creating a lightweight, dedicated VPN access point to a 
 
 ## Running 
 
+
+Run the ansible playbook:
+```bash
+ansible-playbook pb-prepare.yml
+```
+
 Make sure the external network ```most_net``` already exists:
 
 ```bash
@@ -75,9 +81,6 @@ If you used a custom project name (```mostsheylly```):
 ```bash
 docker-compose -p mostsheylly down -v
 ```
-
-## Some utility commands
-
 
 # Git & Collaboration
 This project is version-controlled via Git for clarity and development hygiene — no CI/CD or advanced Git-based deployments are planned.
