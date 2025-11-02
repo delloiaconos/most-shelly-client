@@ -7,6 +7,8 @@ This repository contains the Docker Compose infrastructure for running:
 - **WireGuard VPN Server**: Secure VPN access to the infrastructure
 - **Mosquitto MQTT Broker**: Message broker for IoT device communication
 
+> 🚀 **New to this project?** Check out the [Quick Start Guide](QUICKSTART.md) to get up and running in under 5 minutes!
+
 ## Prerequisites
 
 - Docker Engine 20.10 or later
