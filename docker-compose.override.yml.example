@@ -1,0 +1,17 @@
+# Docker Compose Override Example
+# Copy this file to docker-compose.override.yml to customize your local setup
+# docker-compose.override.yml is automatically loaded and gitignored
+
+# Example: Add custom ports or environment variables
+
+# services:
+#   wireguard:
+#     environment:
+#       - SERVERURL=vpn.example.com
+#       - PEERS=5
+#
+#   mosquitto:
+#     ports:
+#       - "8883:8883"  # Add TLS port
+#     environment:
+#       - TZ=America/New_York

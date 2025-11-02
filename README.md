@@ -119,6 +119,45 @@ most-shelly-client/
 
 ## Management Commands
 
+### Using Make (Recommended)
+
+A Makefile is provided for convenient service management:
+
+```bash
+# Show all available commands
+make help
+
+# Start services
+make up
+
+# Stop services
+make down
+
+# Restart services
+make restart
+
+# View logs
+make logs                # All services
+make logs-wireguard      # WireGuard only
+make logs-mosquitto      # Mosquitto only
+
+# Show status
+make status
+
+# Update services
+make update              # Pull latest images and restart
+
+# WireGuard helpers
+make wireguard-config    # Show peer configuration
+make wireguard-qr        # Show QR code for mobile setup
+
+# Mosquitto testing (requires mosquitto-clients)
+make mosquitto-test-sub  # Subscribe to test topic
+make mosquitto-test-pub  # Publish test message
+```
+
+### Using Docker Compose Directly
+
 ### Start services
 ```bash
 docker-compose up -d

@@ -8,5 +8,8 @@ config/wireguard/*
 # Environment files
 .env
 
+# Docker Compose overrides (local customization)
+docker-compose.override.yml
+
 # Logs
 *.log
