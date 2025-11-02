@@ -17,9 +17,8 @@ services:
     - NET_ADMIN
     networks:
       wg_net:
-        ipv4_address: 192.168.125.123
+        ipv4_address: 192.168.125.125
     ports:
-    #50002:51820
     - 50002:50002/udp
     restart: always
     volumes:
