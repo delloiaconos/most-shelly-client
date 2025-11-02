@@ -1,0 +1,50 @@
+---
+- name: Create MOST SHELLY CLIENT service directories
+  hosts: localhost
+
+  vars:
+    conf_path: ./config 
+    base_path: /opt/most-shelly
+    dir_owner: giroe
+    dir_group: docker
+    dir_mode: "0755"
+
+    # List of directories to create
+    mostshelly_dirs:
+      - "{{ base_path }}/wireguard"
+      - "{{ base_path }}/mosquitto/config"
+      - "{{ base_path }}/mosquitto/data"
+      - "{{ base_path }}/mosquitto/log"
+      - "{{ base_path }}/influx/data"
+      - "{{ base_path }}/nodered/data"
+
+  tasks:
+    - name: Ensure base directory exists
+      become: true
+      ansible.builtin.file:
+        path: "{{ base_path }}"
+        state: directory
+        owner: "{{ dir_owner }}"
+        group: "{{ dir_group }}"
+        mode: "{{ dir_mode }}"
+
+    - name: Create MOST SHELLY CLIENT subdirectories
+      become: true
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ dir_owner }}"
+        group: "{{ dir_group }}"
+        mode: "{{ dir_mode }}"
+      loop: "{{ mostshelly_dirs }}"
+    
+    - name: Copy MOSQUITTO configuration file
+      copy:
+        src: "{{ conf_path }}/mosquitto/{{ item.src }}"
+        dest: "{{ base_path }}/mosquitto/{{ item.dest }}"
+        owner: giroe
+        group: docker
+        mode: "0644"
+      loop:
+        - { src: "mosquitto.conf", dest: "config/mosquitto.conf" }
+        - { src: "passwd", dest: "passwd" }
