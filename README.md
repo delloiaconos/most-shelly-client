@@ -25,12 +25,12 @@ cd most-shelly-client
 
 2. Start the services:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 3. Check the status:
 ```bash
-docker-compose ps
+docker compose ps
 ```
 
 ## Services
@@ -48,17 +48,17 @@ The WireGuard server provides secure VPN access to the infrastructure. Client co
 After the first startup, WireGuard will generate client configuration files. To view the QR code for easy mobile setup:
 
 ```bash
-docker-compose logs wireguard
+docker compose logs wireguard
 ```
 
 Or access the configuration files directly:
 ```bash
-docker-compose exec wireguard cat /config/peer1/peer1.conf
+docker compose exec wireguard cat /config/peer1/peer1.conf
 ```
 
 To display a QR code for mobile clients:
 ```bash
-docker-compose exec wireguard cat /config/peer1/peer1.png
+docker compose exec wireguard cat /config/peer1/peer1.png
 ```
 
 #### Configuration
@@ -102,7 +102,7 @@ The Mosquitto configuration is located at `config/mosquitto/mosquitto.conf`.
 
 To modify the configuration:
 1. Edit `config/mosquitto/mosquitto.conf`
-2. Restart the service: `docker-compose restart mosquitto`
+2. Restart the service: `docker compose restart mosquitto`
 
 ## Directory Structure
 
@@ -162,34 +162,34 @@ make mosquitto-test-pub  # Publish test message
 
 ### Start services
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### Stop services
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ### View logs
 ```bash
 # All services
-docker-compose logs -f
+docker compose logs -f
 
 # Specific service
-docker-compose logs -f wireguard
-docker-compose logs -f mosquitto
+docker compose logs -f wireguard
+docker compose logs -f mosquitto
 ```
 
 ### Restart a service
 ```bash
-docker-compose restart wireguard
-docker-compose restart mosquitto
+docker compose restart wireguard
+docker compose restart mosquitto
 ```
 
 ### Update images
 ```bash
-docker-compose pull
-docker-compose up -d
+docker compose pull
+docker compose up -d
 ```
 
 ## Network Architecture
@@ -220,14 +220,14 @@ sudo modprobe wireguard
 
 Check logs:
 ```bash
-docker-compose logs wireguard
+docker compose logs wireguard
 ```
 
 ### Mosquitto connection refused
 
 Verify the service is running:
 ```bash
-docker-compose ps mosquitto
+docker compose ps mosquitto
 ```
 
 Check if port is accessible:
