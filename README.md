@@ -1,10 +1,17 @@
 # most-shelly-client
 MOST Spoke 5 - Shelly client infrastructure
 
-
-
 ## Overview
 
+This repository contains a simple, self-contained Docker Compose stack designed to quickly deploy a private WireGuard VPN endpoint and a small, internal service network.
+
+### Key Features
+- **Secure Networking**: Deploys the wireguard service, exposing a single UDP port (50002) to the host for secure remote access.
+- **Isolated Private Subnet**: Establishes the private wg_net ($192.168.125.0/24$), ensuring all internal services are reachable only through the VPN tunnel.
+- **Service Testing**: Includes a basic whoami-srv container to confirm network connectivity and routing once a WireGuard client is connected.
+- **Configuration Persistence**: WireGuard configuration files (keys and peers) are persistently stored on the host system at /opt/most-shelly/wireguard. 
+
+This setup is ideal for creating a lightweight, dedicated VPN access point to a local network or a cloud server.
 
 ## Running 
 
