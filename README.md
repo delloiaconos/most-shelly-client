@@ -82,6 +82,13 @@ If you used a custom project name (```mostsheylly```):
 docker-compose -p mostsheylly down -v
 ```
 
+## Create MQTT users
+
+This command line adds a new user to MQTT.
+```bash
+docker exec mostshelly_mqtt_1 mosquitto_passwd -b /mosquitto/config/passwd "user01" "pass01"
+```
+
 # Git & Collaboration
 This project is version-controlled via Git for clarity and development hygiene — no CI/CD or advanced Git-based deployments are planned.
 If you'd like access to the repository, just ask the maintainer.
