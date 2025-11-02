@@ -3,7 +3,38 @@ MOST Spoke 5 - Shelly client infrastructure
 
 ## Overview
 
-This repository contains a simple, self-contained Docker Compose stack designed to quickly deploy a private WireGuard VPN endpoint and a small, internal service network.
+This repository defines the MOST Shelly Client environment, integrating a WireGuard VPN and an MQTT broker (Eclipse Mosquitto).
+It provides secure, network-isolated communication between services using two Docker networks — one shared (most_net) and one private VPN subnet (wg_net).
+
+### Architecture
+| Service        | Image                     | Purpose                                                                                                                                 |
+| -------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **wireguard**  | `procustodibus/wireguard` | Provides a secure VPN tunnel for remote Shelly devices or external nodes. Runs on `wg_net` with a fixed IP.                             |
+| **mqtt**       | `eclipse-mosquitto:2.0`   | MQTT message broker for data exchange between Shelly clients and MOST components. Connected to both networks (`wg_net` and `most_net`). |
+| **whoami-srv** | `jwilder/whoami`          | Lightweight HTTP test container for verifying WireGuard connectivity.                                                                   |
+
+
+### Key Components
+| Setting                | Description                                                                             |
+| ---------------------- | --------------------------------------------------------------------------------------- |
+| **Static IPs**         | WireGuard → `192.168.125.125`, MQTT → `192.168.125.125`, Whoami → `192.168.125.3`       |
+| **Persistent volumes** | Data and configuration for Mosquitto and WireGuard are stored under `/opt/most-shelly/` |
+| **Time sync**          | Each container mounts `/etc/localtime` to stay aligned with the host timezone           |
+| **Restart policy**     | All containers restart automatically unless manually stopped                            |
+
+
+### Directory Structure
+
+```bash
+/opt/most-shelly/
+│
+├── wireguard/
+│   └── wg0.conf
+└── mosquitto/
+    ├── config/
+    │   └── mosquitto.conf
+    └── data/
+```
 
 ### Key Features
 - **Secure Networking**: Deploys the wireguard service, exposing a single UDP port (50002) to the host for secure remote access.
