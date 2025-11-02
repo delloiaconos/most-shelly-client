@@ -26,15 +26,6 @@ services:
     - /etc/localtime:/etc/localtime:ro
     - /opt/most-shelly/wireguard:/etc/wireguard
 
-  example-srv:
-    image: nginx
-    networks:
-      wg_net:
-        ipv4_address: 192.168.125.2
-    restart: unless-stopped
-    volumes:
-    - /etc/localtime:/etc/localtime:ro
-
   whoami-srv:
     image: jwilder/whoami
     networks:
