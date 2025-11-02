@@ -1,0 +1,12 @@
+# Data directories
+data/
+
+# WireGuard generated config (contains sensitive keys)
+config/wireguard/*
+!config/wireguard/.gitkeep
+
+# Environment files
+.env
+
+# Logs
+*.log
