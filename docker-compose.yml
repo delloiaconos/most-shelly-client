@@ -13,6 +13,7 @@ networks:
 services:
   wireguard:
     image: procustodibus/wireguard
+    hostname: wireguard
     cap_add:
     - NET_ADMIN
     networks:
@@ -24,6 +25,23 @@ services:
     volumes:
     - /etc/localtime:/etc/localtime:ro
     - /opt/most-shelly/wireguard:/etc/wireguard
+
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    hostname: mqtt
+    restart: always
+    networks:
+      wg_net:
+          ipv4_address: 192.168.125.125
+      most_net: {}
+    #ports:
+    #  - "1883:1883"    # MQTT protocol
+    #  - "9001:9001"    # WebSocket (optional)
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/mostshelly/mosquitto/config:/mosquitto/config
+      - /opt/mostshelly/mosquitto/data:/mosquitto/data
+      - /opt/mostshelly/mosquitto/log:/mosquitto/log
 
   whoami-srv:
     image: jwilder/whoami
