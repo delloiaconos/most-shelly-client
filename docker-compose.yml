@@ -24,7 +24,7 @@ services:
     restart: always
     volumes:
     - /etc/localtime:/etc/localtime:ro
-    - /opt/most-shelly/wireguard:/etc/wireguard
+    - "${BASE_PATH}/wireguard:/etc/wireguard"
 
   mqtt:
     image: eclipse-mosquitto:2.0
@@ -32,18 +32,15 @@ services:
     restart: always
     networks:
       wg_net:
-          ipv4_address: 192.168.125.125
+          ipv4_address: 192.168.125.126
       most_net: {}
-    #ports:
-    #  - "1883:1883"    # MQTT protocol
-    #  - "9001:9001"    # WebSocket (optional)
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /opt/mostshelly/mosquitto/config:/mosquitto/config
-      - /opt/mostshelly/mosquitto/data:/mosquitto/data
-      - /opt/mostshelly/mosquitto/log:/mosquitto/log
+      - "${BASE_PATH}/mosquitto/config:/mosquitto/config"
+      - "${BASE_PATH}/mosquitto/data:/mosquitto/data"
+      - "${BASE_PATH}/mosquitto/log:/mosquitto/log"
 
-  whoami-srv:
+  whoami:
     image: jwilder/whoami
     networks:
       wg_net:
