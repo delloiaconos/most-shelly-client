@@ -41,7 +41,17 @@
         dest: "{{ base_path }}/mosquitto/{{ item.dest }}"
         owner: giroe
         group: docker
-        mode: "0644"
+        mode: "0600"
       loop:
         - { src: "mosquitto.conf", dest: "config/mosquitto.conf" }
-        - { src: "passwd", dest: "passwd" }
+        - { src: "passwd", dest: "config/passwd" }
+  
+    - name: Copy WIREGUARD configurations
+      copy:
+        src: "{{ conf_path }}/wireguard/{{ item.src }}"
+        dest: "{{ base_path }}/wireguard/{{ item.dest }}"
+        owner: giroe
+        group: docker
+        mode: "0600"
+      loop:
+        - { src: "wg0.conf", dest: "wg0.conf" }
