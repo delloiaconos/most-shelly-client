@@ -6,24 +6,41 @@ networks:
     external: true
 
   wg_net:
+    driver: bridge
+    enable_ipv6: false
     ipam:
       config:
       - subnet: 192.168.125.0/24
 
 services:
   wireguard:
-    image: procustodibus/wireguard
+    image: ghcr.io/wg-easy/wg-easy:15
+    container_name: wireguard
     hostname: wireguard
     cap_add:
     - NET_ADMIN
+    - SYS_MODULE
     networks:
       wg_net:
         ipv4_address: 192.168.125.125
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv6.conf.all.forwarding=1
+      - net.ipv6.conf.default.forwarding=1
     ports:
-    - 50002:50002/udp
+    - "50002:50002/udp"
+    - "51821:51821/tcp"
+    environment:
+    #  Optional:
+    #  - PORT=50002
+    #  - HOST=0.0.0.0
+      - INSECURE=true
     restart: always
     volumes:
     - /etc/localtime:/etc/localtime:ro
+    - /lib/modules:/lib/modules:ro
     - "${BASE_PATH}/wireguard:/etc/wireguard"
 
   mqtt:
